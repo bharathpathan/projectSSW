@@ -1,10 +1,12 @@
-package com.pubnub.kaushik.realtimetaxiandroiddemo;
+package com.pubnub.sarath.ssw;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.ValueAnimator;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.util.Log;
 import android.view.animation.LinearInterpolator;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -20,8 +22,8 @@ import com.pubnub.api.callbacks.SubscribeCallback;
 import com.pubnub.api.models.consumer.PNStatus;
 import com.pubnub.api.models.consumer.pubsub.PNMessageResult;
 import com.pubnub.api.models.consumer.pubsub.PNPresenceEventResult;
-import com.pubnub.kaushik.realtimetaxiandroiddemo.util.Constants;
-import com.pubnub.kaushik.realtimetaxiandroiddemo.util.JsonUtil;
+import com.pubnub.sarath.ssw.util.Constants;
+import com.pubnub.sarath.ssw.util.JsonUtil;
 
 import java.util.Arrays;
 import java.util.LinkedHashMap;
@@ -98,8 +100,18 @@ public class PassengerActivity extends AppCompatActivity implements OnMapReadyCa
                     @Override
                     public void run() {
                         try {
-                            Map<String, String> newLocation = JsonUtil.fromJson(message.getMessage().toString(), LinkedHashMap.class);
-                            updateUI(newLocation);
+                            Map<String, Map<String,String>> newLocation = JsonUtil.fromJson(message.getMessage().toString(), LinkedHashMap.class);
+
+                            Log.d("Bharath",""+newLocation.toString());
+                            for (String name : newLocation.keySet()){
+                                Log.d("Bharath",""+name);
+                                Map<String, String> userLocation = newLocation.get(name);
+                                updateUI(name,userLocation);
+
+                            }
+
+//                            Map<String, String> userLocation = JsonUtil.fromJson(message.getMessage().toString(), LinkedHashMap.class);
+//                            updateUI(userLocation);
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
@@ -123,7 +135,7 @@ public class PassengerActivity extends AppCompatActivity implements OnMapReadyCa
         to move the marker slowly along linear path to this location.
         Also moves camera, if marker is outside of map bounds.
      */
-    private void updateUI(Map<String, String> newLoc) {
+    private void updateUI(String name,Map<String, String> newLoc) {
         LatLng newLocation = new LatLng(Double.valueOf(newLoc.get("lat")), Double.valueOf(newLoc.get("lng")));
         if (driverMarker != null) {
             animateCar(newLocation);
@@ -137,7 +149,7 @@ public class PassengerActivity extends AppCompatActivity implements OnMapReadyCa
         } else {
             mGoogleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(
                     newLocation, 15.5f));
-            driverMarker = mGoogleMap.addMarker(new MarkerOptions().position(newLocation).
+            driverMarker = mGoogleMap.addMarker(new MarkerOptions().position(newLocation).title(name).
                     icon(BitmapDescriptorFactory.fromResource(R.drawable.car)));
         }
     }

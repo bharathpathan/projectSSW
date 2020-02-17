@@ -1,4 +1,4 @@
-package com.pubnub.kaushik.realtimetaxiandroiddemo.util;
+package com.pubnub.sarath.ssw.util;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
