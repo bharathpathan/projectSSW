@@ -1,8 +1,8 @@
-# RealtimeTaxiAndroidDemo
+<!-- # RealtimeTaxiAndroidDemo
 
 This demo showcases PubNub's Publish Subscribe feature. Through this setup, developers can easily create a real time map in a use case such as that of Lyft and Uber. 
 
-[Click here for full tutorial](https://www.pubnub.com/blog/build-your-own-uber-lyft-app-geolocation-tracking-android/)
+[Click here for full tutorial](https://www.pubnub.com/blog/build-your-own-uber-lyft-app-geolocation-tracking-android/) -->
 
 <p align="center">
 <a href="http://www.youtube.com/watch?feature=player_embedded&v=Yvud7KK5QKY
